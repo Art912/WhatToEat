@@ -1,0 +1,16 @@
+<div class="form-container">
+  <form [formGroup]="editIngredientForm" class="form-container">
+    <div class="input-group mb-3">
+      <input class="form-control" placeholder="Ingredient" formControlName="name">
+      <div class="alert-danger" *ngIf="editIngredientForm.controls['name'].invalid && editIngredientForm.controls['name'].touched">
+        Ингредиент не указан
+      </div>
+    </div>
+    <div>
+      <button type="button" class="btn btn-primary" (click)="save()">
+        Save
+      </button>
+    </div>
+  </form>
+
+</div>
