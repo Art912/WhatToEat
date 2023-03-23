@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import { Observable } from 'rxjs/internal/Observable';
+import {Observable} from 'rxjs/internal/Observable';
 import {Ingredient} from "../shared/dto/ingredient";
 
 @Injectable()
@@ -19,14 +19,23 @@ export class IngredientsService {
     return this.http.get<Ingredient[]>(`${this.rootUrl}/ingredient/`);
   }
 
-  public create(item:Ingredient): Observable<void> {
+  public create(item: Ingredient): Observable<void> {
     // вызов get метода из HttpClient
     // <BreedResponse> - тип данных который мы ожидаем что придёт из API
-    return this.http.post<void>(`${this.rootUrl}/ingredient/`,item);
+    return this.http.post<void>(`${this.rootUrl}/ingredient/`, item);
   }
 
-  public delete(id:string):Observable<void>{
+  public delete(id: string): Observable<void> {
     return this.http.delete<void>(`${this.rootUrl}/ingredient/${id}`);
   }
 
+  public getById(id: string): Observable<Ingredient> {
+    return this.http.get<Ingredient>(`${this.rootUrl}/ingredient/${id}`);
+  }
+
+  public update(item: Ingredient): Observable<void> {
+    // вызов get метода из HttpClient
+    // <BreedResponse> - тип данных который мы ожидаем что придёт из API
+    return this.http.put<void>(`${this.rootUrl}/ingredient/${item._id}`, item);
+  }
 }

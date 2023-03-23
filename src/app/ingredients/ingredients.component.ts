@@ -1,12 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTable} from "@angular/material/table";
-import {HttpClient} from "@angular/common/http";
 import {IngredientsService} from "./ingredients.service";
 import {Ingredient} from "../shared/dto/ingredient";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateIngredientComponent} from "./create-ingredient/create-ingredient.component";
 import {DeleteIngredientComponent} from "./delete-ingredient/delete-ingredient.component";
-import { EditIngredientComponent } from './edit-ingredient/edit-ingredient.component';
+import {EditIngredientComponent} from './edit-ingredient/edit-ingredient.component';
 
 
 @Component({
@@ -31,7 +30,10 @@ export class IngredientsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(popupResponse => {
-      this.ingredientsService.create(popupResponse).subscribe(response => {
+      if (!popupResponse) {
+        return;
+      }
+      this.ingredientsService.create(popupResponse).subscribe(() => {
         // this.ingredientResponse.push(popupResponse);
         this.getAllIngredients();
         this.table.renderRows();
@@ -46,44 +48,47 @@ export class IngredientsComponent implements OnInit {
   public getAllIngredients(): void {
     this.ingredientsService.getAllIngredients().subscribe((response: Ingredient[]) => {
       this.ingredientResponse = response; //  response - данные которые пришли
-      console.log(this.ingredientResponse);
     });
   }
 
-  public onDelete(name: string): void {
-    // this.ingredientResponse = this.ingredientResponse.filter(item => item.name !== name);
+  //       this.ingredientResponse = this.ingredientResponse.filter(item => item.name !== name);
 
+  // forech(item in ingredientResponse){
+  //   if (item.name !== name){
+  //     return item;
+  //   }
+  // }
+
+  public onDelete(id: string): void {
+    //subscribe(() =>   - приходит пусто
+    //subscribe(response =>   - приходит какой то объект
     const dialogRef = this.dialog.open(DeleteIngredientComponent);
 
     dialogRef.afterClosed().subscribe(popupResponse => {
-      if(popupResponse ===true){
-        this.ingredientResponse = this.ingredientResponse.filter(item => item.name !== name);
+      if (popupResponse) {
+        this.ingredientsService.delete(id).subscribe(() => {
+
+          this.getAllIngredients();
+          this.table.renderRows();
+        });
       }
     });
-    // forech(item in ingredientResponse){
-    //   if (item.name !== name){
-    //     return item;
-    //   }
-    // }
   }
 
-  public onDelete2(id: string): void {
-    //subscribe(() =>   - приходит пусто
-    //subscribe(response =>   - приходит какой то объект
-    this.ingredientsService.delete(id).subscribe(() => {
-
-      this.getAllIngredients();
-      this.table.renderRows();
-    });
-  }
-
-  public onEdit(ingredient: Ingredient): void {
+  public onEdit(id: string): void {
     const dialogRef = this.dialog.open(EditIngredientComponent, {
       //в попап прокидываем объект => в попапе делаем форму
-      data : ingredient,
+      //{id:id} - создали анонимный объект для удобной передачи данных
+      data: {
+        id: id
+      },
     });
+
     dialogRef.afterClosed().subscribe(popupResponse => {
-      this.ingredientsService.create(popupResponse).subscribe(response => {
+      if (!popupResponse) {
+        return;
+      }
+      this.ingredientsService.update(popupResponse).subscribe(() => {
         // this.ingredientResponse.push(popupResponse);
         this.getAllIngredients();
         this.table.renderRows();
