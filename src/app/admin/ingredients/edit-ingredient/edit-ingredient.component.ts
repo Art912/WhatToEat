@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Ingredient} from "../../shared/dto/ingredient";
+import {Ingredient} from "../../../shared/dto/ingredient";
 import {IngredientsService} from "../ingredients.service";
 
 @Component({
@@ -30,7 +30,7 @@ export class EditIngredientComponent {
   public getForm(response: Ingredient): FormGroup {
     const form = new FormGroup({
       //+>делаем форму
-      id: new FormControl(response._id),
+      id: new FormControl(response.id),
       name: new FormControl(response.name, [Validators.required, Validators.minLength(1)]),
     });
     return form;
@@ -43,7 +43,7 @@ export class EditIngredientComponent {
   public save(): void {
     if (this.editIngredientForm.valid) {
       const editedIngredient: Ingredient = {
-        _id: this.editIngredientForm.value.id,
+        id: this.editIngredientForm.value.id,
         name: this.editIngredientForm.value.name,
       }
       //вернет данный туда от куда вызван попап

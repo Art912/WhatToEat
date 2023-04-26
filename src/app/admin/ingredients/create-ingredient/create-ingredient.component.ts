@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Ingredient} from "../../shared/dto/ingredient";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Ingredient} from "../../../shared/dto/ingredient";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-create-ingredient',
@@ -10,6 +10,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class CreateIngredientComponent {
   public createIngredientForm!: FormGroup;
+
   constructor(
     //всегда одинаковый, только объект в дженерики (в <...>)
     public dialogRef: MatDialogRef<CreateIngredientComponent>,

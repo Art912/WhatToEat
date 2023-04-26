@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTable} from "@angular/material/table";
 import {IngredientsService} from "./ingredients.service";
-import {Ingredient} from "../shared/dto/ingredient";
+import {Ingredient} from "../../shared/dto/ingredient";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateIngredientComponent} from "./create-ingredient/create-ingredient.component";
 import {DeleteIngredientComponent} from "./delete-ingredient/delete-ingredient.component";
@@ -14,7 +14,7 @@ import {EditIngredientComponent} from './edit-ingredient/edit-ingredient.compone
   styleUrls: ['./ingredients.component.css']
 })
 export class IngredientsComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'creationDate', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'actions'];
   // dataSource = [...ELEMENT_DATA];
   public ingredientResponse!: Ingredient[];
 

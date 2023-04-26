@@ -4,17 +4,19 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from "@angular/material/button";
 import {MatTabsModule} from '@angular/material/tabs';
-import {IngredientsComponent} from './ingredients/ingredients.component';
+import {IngredientsComponent} from './admin/ingredients/ingredients.component';
 import {MatTableModule} from '@angular/material/table';
-import {IngredientsService} from "./ingredients/ingredients.service";
+import {IngredientsService} from "./admin/ingredients/ingredients.service";
 import {HttpClientModule} from '@angular/common/http';
-import {CreateIngredientComponent} from './ingredients/create-ingredient/create-ingredient.component';
+import {CreateIngredientComponent} from './admin/ingredients/create-ingredient/create-ingredient.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatIconModule} from '@angular/material/icon';
-import {DeleteIngredientComponent} from './ingredients/delete-ingredient/delete-ingredient.component';
-import {EditIngredientComponent} from './ingredients/edit-ingredient/edit-ingredient.component';
+import {DeleteIngredientComponent} from './admin/ingredients/delete-ingredient/delete-ingredient.component';
+import {EditIngredientComponent} from './admin/ingredients/edit-ingredient/edit-ingredient.component';
 import {RecipeComponent} from './recipe/recipe.component';
+import {CategoryComponent} from './admin/category/category.component';
+import {CategoryService} from "./admin/category/category.service";
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import {RecipeComponent} from './recipe/recipe.component';
     CreateIngredientComponent,
     DeleteIngredientComponent,
     EditIngredientComponent,
-    RecipeComponent
+    RecipeComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,7 @@ import {RecipeComponent} from './recipe/recipe.component';
     ReactiveFormsModule,
     MatIconModule
   ],
-  providers: [IngredientsService],
+  providers: [IngredientsService, CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

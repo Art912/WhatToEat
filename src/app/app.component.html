@@ -1,12 +1,21 @@
 <div class="main-container">
   <mat-tab-group>
-    <mat-tab label="Admin">
-      <app-ingredients></app-ingredients>
+    <mat-tab label="Recipes">
+      <app-recipe></app-recipe>
     </mat-tab>
-    <mat-tab label="What to eat"> Content 1 </mat-tab>
-    <mat-tab label="What did you eat today"> Content 2 </mat-tab>
-    <mat-tab label="Recipes"> Content 3 </mat-tab>
-    <mat-tab label="Setting"> Content 4 </mat-tab>
+    <mat-tab label="Admin">
+      <mat-tab-group>
+        <mat-tab label="Category">
+          <app-category></app-category>
+        </mat-tab>
+        <mat-tab label="Ingredient">
+          <app-ingredients></app-ingredients>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-tab>
+    <mat-tab label="What to eat"> Content 1</mat-tab>
+    <mat-tab label="What did you eat today"> Content 2</mat-tab>
+    <mat-tab label="Setting"> Content 4</mat-tab>
   </mat-tab-group>
 </div>
 
