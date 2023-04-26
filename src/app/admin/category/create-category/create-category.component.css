@@ -1,0 +1,13 @@
+.form-container {
+  width: 250px;
+  height: 150px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.alert-danger {
+  color: red;
+}

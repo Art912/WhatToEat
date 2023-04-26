@@ -1,0 +1,17 @@
+<div class="form-container">
+  <form *ngIf="editCategoryForm" [formGroup]="editCategoryForm" class="form-container">
+    <div class="input-group mb-3">
+      <label class="form-control" formControlName="id" [disabled]="true">{{data.id}}</label>
+      <input class="form-control" placeholder="Catergory" formControlName="name">
+      <div class="alert-danger"
+           *ngIf="editCategoryForm.controls['name'].invalid && editCategoryForm.controls['name'].touched">
+        Category not listed
+      </div>
+    </div>
+    <div>
+      <button type="button" class="btn btn-primary" (click)="save()">
+        Save
+      </button>
+    </div>
+  </form>
+</div>

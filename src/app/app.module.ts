@@ -17,6 +17,9 @@ import {EditIngredientComponent} from './admin/ingredients/edit-ingredient/edit-
 import {RecipeComponent} from './recipe/recipe.component';
 import {CategoryComponent} from './admin/category/category.component';
 import {CategoryService} from "./admin/category/category.service";
+import {CreateCategoryComponent} from './admin/category/create-category/create-category.component';
+import {DeleteCategoryComponent} from './admin/category/delete-category/delete-category.component';
+import {EditCategoryComponent} from './admin/category/edit-category/edit-category.component';
 
 
 @NgModule({
@@ -27,7 +30,10 @@ import {CategoryService} from "./admin/category/category.service";
     DeleteIngredientComponent,
     EditIngredientComponent,
     RecipeComponent,
-    CategoryComponent
+    CategoryComponent,
+    CreateCategoryComponent,
+    DeleteCategoryComponent,
+    EditCategoryComponent
   ],
   imports: [
     BrowserModule,

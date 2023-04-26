@@ -1,0 +1,16 @@
+<div class="form-container">
+  <form [formGroup]="createCategoryForm" class="form-container">
+    <div class="input-group mb-3">
+      <input class="form-control" placeholder="Category" formControlName="name">
+      <div class="alert-danger"
+           *ngIf="createCategoryForm.controls['name'].invalid && createCategoryForm.controls['name'].touched">
+        Category not listed
+      </div>
+    </div>
+    <div>
+      <button type="button" class="btn btn-primary" (click)="save()">
+        Save
+      </button>
+    </div>
+  </form>
+</div>

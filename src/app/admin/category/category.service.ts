@@ -24,17 +24,17 @@ export class CategoryService {
   }
 
   public delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.rootUrl}/category/${id}`);
+    return this.http.delete<void>(`${this.rootUrl}/category/Remove?id=${id}`);
   }
 
   public getById(id: string): Observable<Category> {
-    return this.http.get<Category>(`${this.rootUrl}/category/${id}`);
+    return this.http.get<Category>(`${this.rootUrl}/category/GetById?id=${id}`);
   }
 
   public update(item: Category): Observable<void> {
     // вызов get метода из HttpClient
     // <BreedResponse> - тип данных который мы ожидаем что придёт из API
-    return this.http.put<void>(`${this.rootUrl}/category/${item.id}`, item);
+    return this.http.put<void>(`${this.rootUrl}/category/Update`, item);
   }
 
 }
