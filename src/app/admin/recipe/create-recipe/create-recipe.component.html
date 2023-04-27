@@ -28,9 +28,18 @@
         <table class="example-full-width" cellspacing="0">
           <tr>
             <td>
-              <mat-form-field class="example-full-width">
+              <!--              <mat-form-field class="example-full-width">-->
+              <!--                <mat-label>Ingredient</mat-label>-->
+              <!--                <input matInput formControlName="ingredientName">-->
+              <!--              </mat-form-field>-->
+              <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Ingredient</mat-label>
-                <input matInput formControlName="ingredientName">
+                <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option.name}}
+                  </mat-option>
+                </mat-autocomplete>
               </mat-form-field>
             </td>
             <td>
@@ -48,7 +57,7 @@
                 <!--                  </mat-option>-->
                 <!--                </mat-select>-->
                 <mat-select formControlName="ingredientQuantity">
-                  <mat-option *ngFor="let category of categoryResponse" [value]="categoryResponse">
+                  <mat-option *ngFor="let category of categoryResponse" [value]="category">
                     {{ category.name }}
                   </mat-option>
                 </mat-select>
@@ -63,15 +72,21 @@
       <table mat-table *ngIf="recipeIngredients" [dataSource]="recipeIngredients" class="mat-elevation-z8 demo-table">
         <ng-container matColumnDef="ingredient">
           <th mat-header-cell *matHeaderCellDef>Ingredient</th>
-          <td mat-cell *matCellDef="let recipeIngredients">{{recipeIngredients.name}}</td>
+          <td mat-cell *matCellDef="let ingredient">{{ingredient.ingredientName}}</td>
         </ng-container>
         <ng-container matColumnDef="amount">
           <th mat-header-cell *matHeaderCellDef>Amount</th>
-          <td mat-cell *matCellDef="let recipeIngredients">{{recipeIngredients.amount}}</td>
+          <td mat-cell *matCellDef="let ingredient">{{ingredient.ingredientAmount}}</td>
         </ng-container>
         <ng-container matColumnDef="quantity">
           <th mat-header-cell *matHeaderCellDef>Quantity</th>
-          <td mat-cell *matCellDef="let recipeIngredients">{{recipeIngredients.quantity}}</td>
+          <td mat-cell *matCellDef="let ingredient">{{ingredient.ingredientQuantity.name}}</td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let ingredient">
+            <mat-icon fontIcon="delete" (click)="onDelete(ingredient.id)"></mat-icon>
+          </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -24,6 +24,7 @@ import {DeleteRecipeComponent} from './admin/recipe/delete-recipe/delete-recipe.
 import {CreateRecipeComponent} from './admin/recipe/create-recipe/create-recipe.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import {MatSelectModule} from '@angular/material/select';
     ReactiveFormsModule,
     MatIconModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   providers: [IngredientsService, CategoryService],
   bootstrap: [AppComponent]

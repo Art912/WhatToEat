@@ -2,7 +2,7 @@ import {Component, Inject, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Recipe} from "../../../shared/dto/recipe";
-import {forkJoin, map} from "rxjs";
+import {forkJoin, map, Observable, startWith} from "rxjs";
 import {IngredientsService} from "../../ingredients/ingredients.service";
 import {CategoryService} from "../../category/category.service";
 import {Ingredient} from "../../../shared/dto/ingredient";
@@ -11,9 +11,8 @@ import {RecipeIngredient} from "../../../shared/dto/recipeIngredient";
 import {MatTable} from "@angular/material/table";
 
 
-interface Food {
-  value: string;
-  viewValue: string;
+export interface User {
+  name: string;
 }
 
 @Component({
@@ -23,15 +22,20 @@ interface Food {
 })
 export class CreateRecipeComponent {
 
+  myControl = new FormControl<string | User>('');
+  options: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
+  filteredOptions!: Observable<User[]>;
+
 
   public createRecipeForm!: FormGroup;
   @ViewChild(MatTable) ingredirntsTable!: MatTable<RecipeIngredient>;
 
-  displayedColumns: string[] = ['ingredient', 'amount', 'quantity'];
+  displayedColumns: string[] = ['ingredient', 'amount', 'quantity', 'action'];
 
   public categoryResponse: Category[] = [];
   public ingredientResponse: Ingredient[] = [];
   public recipeIngredients: RecipeIngredient[] = [];
+
 
 
   constructor(
@@ -45,6 +49,13 @@ export class CreateRecipeComponent {
   ngOnInit(): void {
     this.createRecipeForm = this.getForm();
 
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const name = typeof value === 'string' ? value : value?.name;
+        return name ? this._filter(name as string) : this.options.slice();
+      }),
+    );
 
     forkJoin([this.categoryService.getAllCategory(), this.ingredientsService.getAllIngredients()]).pipe(
       map(([categoryResponse, ingredientResponse]) => {
@@ -93,21 +104,25 @@ export class CreateRecipeComponent {
   }
 
   public addIngredientToRecipe(): void {
-    const ingredientName = this.createRecipeForm.get('ingredientName')?.value;
-    const ingredientAmount = this.createRecipeForm.get('ingredientAmount')?.value;
-    const ingredientMeasure = this.createRecipeForm.get('ingredientMeasure')?.value;
+    //одно и то же!!!!
+    const newRecipeIngredient: RecipeIngredient = this.createRecipeForm.value;
 
-    const recipeIngredient: RecipeIngredient = {
-      recipeId: 'r1',
-      ingredientId: 'i1',
-      name: ingredientName,
-      amount: ingredientAmount,
-      quantity: ingredientMeasure
-    };
+    // const ingredientName = this.createRecipeForm.get('ingredientName')?.value;
+    // const ingredientAmount = this.createRecipeForm.get('ingredientAmount')?.value;
+    // const ingredientQuantity = this.createRecipeForm.get('ingredientMeasure')?.value;
+    //
+    // const recipeIngredient: RecipeIngredient = {
+    //   recipeId: 'r1',
+    //   ingredientId: 'i1',
+    //   name: ingredientName,
+    //   amount: ingredientAmount,
+    //   quantity: ingredientQuantity
+    // };
 
-    this.recipeIngredients.push(recipeIngredient);
-    this.createRecipeForm.get('ingredientName')?.setValue('');
-    this.createRecipeForm.get('ingredientAmount')?.setValue('');
+    this.recipeIngredients.push(newRecipeIngredient);
+    // this.createRecipeForm.reset();
+    this.createRecipeForm.get('ingredientName')?.reset();
+    this.createRecipeForm.get('ingredientAmount')?.reset();
     this.ingredirntsTable.renderRows();
 
     // Очистить форму
@@ -118,4 +133,17 @@ export class CreateRecipeComponent {
   //   this.form.get('ingredientQuantity').patchValue(event.value);
   // }
 
+  displayFn(user: User): string {
+    return user && user.name ? user.name : '';
+  }
+
+  private _filter(name: string): User[] {
+    const filterValue = name.toLowerCase();
+
+    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
+  onDelete(id: string) {
+
+  }
 }
