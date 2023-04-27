@@ -11,7 +11,7 @@ export class CategoryService {
   constructor(private http: HttpClient) {
   }
 
-  public getAll(): Observable<Category[]> {
+  public getAllCategory(): Observable<Category[]> {
     // вызов get метода из HttpClient
     // <BreedResponse> - тип данных который мы ожидаем что придёт из API
     return this.http.get<Category[]>(`${this.rootUrl}/category/getAll`);

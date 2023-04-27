@@ -1,0 +1,52 @@
+.form-container {
+  /*width: 800px;*/
+  /*height: 500px;*/
+  padding: 10px;
+
+  overflow: auto;
+
+}
+
+.save-btn {
+  margin: 20px;
+  font-size: 18px;
+  position: center;
+}
+
+.save {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.input-group-and-button {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.input-group-and-button button {
+  height: 56px;
+  margin-left: 2px;
+  font-size: 18px;
+}
+
+.dish-name {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recipe-category {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+mat-form-field {
+  display: flex;
+}
+
+

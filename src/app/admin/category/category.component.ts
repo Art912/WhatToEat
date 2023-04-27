@@ -29,7 +29,7 @@ export class CategoryComponent implements OnInit {
   }
 
   private getAllCategory(): void {
-    this.categoryService.getAll().subscribe((response: Category[]) => {
+    this.categoryService.getAllCategory().subscribe((response: Category[]) => {
         this.categoryResponse = response;
       }
     )

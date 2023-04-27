@@ -14,12 +14,16 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatIconModule} from '@angular/material/icon';
 import {DeleteIngredientComponent} from './admin/ingredients/delete-ingredient/delete-ingredient.component';
 import {EditIngredientComponent} from './admin/ingredients/edit-ingredient/edit-ingredient.component';
-import {RecipeComponent} from './recipe/recipe.component';
+import {RecipeComponent} from './admin/recipe/recipe.component';
 import {CategoryComponent} from './admin/category/category.component';
 import {CategoryService} from "./admin/category/category.service";
 import {CreateCategoryComponent} from './admin/category/create-category/create-category.component';
 import {DeleteCategoryComponent} from './admin/category/delete-category/delete-category.component';
 import {EditCategoryComponent} from './admin/category/edit-category/edit-category.component';
+import {DeleteRecipeComponent} from './admin/recipe/delete-recipe/delete-recipe.component';
+import {CreateRecipeComponent} from './admin/recipe/create-recipe/create-recipe.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -33,7 +37,9 @@ import {EditCategoryComponent} from './admin/category/edit-category/edit-categor
     CategoryComponent,
     CreateCategoryComponent,
     DeleteCategoryComponent,
-    EditCategoryComponent
+    EditCategoryComponent,
+    DeleteRecipeComponent,
+    CreateRecipeComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +50,9 @@ import {EditCategoryComponent} from './admin/category/edit-category/edit-categor
     HttpClientModule,
     MatDialogModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [IngredientsService, CategoryService],
   bootstrap: [AppComponent]
