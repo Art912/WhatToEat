@@ -2,18 +2,14 @@ import {Component, Inject, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Recipe} from "../../../shared/dto/recipe";
-import {forkJoin, map, Observable, startWith} from "rxjs";
+import {forkJoin, map, Observable} from "rxjs";
 import {IngredientsService} from "../../ingredients/ingredients.service";
 import {CategoryService} from "../../category/category.service";
 import {Ingredient} from "../../../shared/dto/ingredient";
 import {Category} from 'src/app/shared/dto/category';
 import {RecipeIngredient} from "../../../shared/dto/recipeIngredient";
 import {MatTable} from "@angular/material/table";
-
-
-export interface User {
-  name: string;
-}
+import {TempRecipeIngredient} from "../temp-recipe-ingredient";
 
 @Component({
   selector: 'app-create-recipe',
@@ -22,9 +18,9 @@ export interface User {
 })
 export class CreateRecipeComponent {
 
-  myControl = new FormControl<string | User>('');
-  options: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
-  filteredOptions!: Observable<User[]>;
+  ingredientRecipeControl = new FormControl('');
+  options: Ingredient[] = [];
+  filteredOptions!: Observable<Ingredient[] | null>;
 
 
   public createRecipeForm!: FormGroup;
@@ -36,6 +32,7 @@ export class CreateRecipeComponent {
   public ingredientResponse: Ingredient[] = [];
   public recipeIngredients: RecipeIngredient[] = [];
 
+  public test = this.ingredientsService.getAllIngredients();
 
 
   constructor(
@@ -49,8 +46,8 @@ export class CreateRecipeComponent {
   ngOnInit(): void {
     this.createRecipeForm = this.getForm();
 
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
+    this.filteredOptions = this.ingredientRecipeControl.valueChanges.pipe(
+      // startWith(''),
       map(value => {
         const name = typeof value === 'string' ? value : value?.name;
         return name ? this._filter(name as string) : this.options.slice();
@@ -73,7 +70,7 @@ export class CreateRecipeComponent {
       name: new FormControl('', [Validators.required, Validators.minLength(1)]),
       amount: new FormControl(''),
       quantity: new FormControl(''),
-      ingredientName: new FormControl(''),
+      ingredientName: this.ingredientRecipeControl,
       ingredientAmount: new FormControl(''),
       ingredientQuantity: new FormControl(''),
     });
@@ -103,9 +100,14 @@ export class CreateRecipeComponent {
     }
   }
 
+  private revisedRandId(): string {
+    return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
+  }
+
   public addIngredientToRecipe(): void {
     //одно и то же!!!!
-    const newRecipeIngredient: RecipeIngredient = this.createRecipeForm.value;
+    const newRecipeIngredient: TempRecipeIngredient = this.createRecipeForm.value;
+    newRecipeIngredient.tempId = this.revisedRandId();
 
     // const ingredientName = this.createRecipeForm.get('ingredientName')?.value;
     // const ingredientAmount = this.createRecipeForm.get('ingredientAmount')?.value;
@@ -133,11 +135,11 @@ export class CreateRecipeComponent {
   //   this.form.get('ingredientQuantity').patchValue(event.value);
   // }
 
-  displayFn(user: User): string {
+  displayFn(user: Ingredient): string {
     return user && user.name ? user.name : '';
   }
 
-  private _filter(name: string): User[] {
+  private _filter(name: string): Igredient[] {
     const filterValue = name.toLowerCase();
 
     return this.options.filter(option => option.name.toLowerCase().includes(filterValue));

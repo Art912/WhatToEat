@@ -36,6 +36,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  border: 1px solid darkslategray;
+
 }
 
 .recipe-category {
@@ -43,10 +45,28 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
 }
 
 mat-form-field {
   display: flex;
+}
+
+.recipe-image {
+  width: 130px;
+  height: 130px;
+  background-color: rgba(219, 219, 219)
+}
+
+.container-with-image {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid black;
+}
+
+.left-container {
+  border: 1px solid red;
 }
 
 

@@ -2,23 +2,30 @@
 
   <div class="form-container mat-typography">
     <form [formGroup]="createRecipeForm" class="form-container">
-      <div class="dish-name">
-        <h1>Dish name</h1>
-        <mat-form-field class="example-full-width">
-          <mat-label>Dish name</mat-label>
-          <input matInput>
-        </mat-form-field>
-      </div>
-      <div class="recipe-category">
-        <h2>Recipe category</h2>
-        <mat-form-field appearance="fill">
-          <mat-label>Category</mat-label>
-          <mat-select *ngIf="categoryResponse">
-            <mat-option *ngFor="let category of categoryResponse" [value]="categoryResponse">
-              {{category.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <div class="container-with-image">
+        <div class="left-container">
+          <div class="dish-name">
+            <h1>Dish name</h1>
+            <mat-form-field class="example-full-width">
+              <mat-label>Dish name</mat-label>
+              <input matInput>
+            </mat-form-field>
+          </div>
+          <div class="recipe-category">
+            <h2>Recipe category</h2>
+            <mat-form-field appearance="fill">
+              <mat-label>Category</mat-label>
+              <mat-select *ngIf="categoryResponse">
+                <mat-option *ngFor="let category of categoryResponse" [value]="categoryResponse">
+                  {{category.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="recipe-image">
+          Image
+        </div>
       </div>
       <mat-form-field class="example-full-width">
         <mat-label>Description</mat-label>
@@ -34,10 +41,10 @@
               <!--              </mat-form-field>-->
               <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Ingredient</mat-label>
-                <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                <input type="text" matInput formControlName="ingredientName" [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                    {{option.name}}
+                  <mat-option *ngFor="let ingreient of options " [value]="ingreient">
+                    {{ingreient.name}}
                   </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
@@ -72,7 +79,7 @@
       <table mat-table *ngIf="recipeIngredients" [dataSource]="recipeIngredients" class="mat-elevation-z8 demo-table">
         <ng-container matColumnDef="ingredient">
           <th mat-header-cell *matHeaderCellDef>Ingredient</th>
-          <td mat-cell *matCellDef="let ingredient">{{ingredient.ingredientName}}</td>
+          <td mat-cell *matCellDef="let ingredient">{{ingredient.ingredientName?.name}}</td>
         </ng-container>
         <ng-container matColumnDef="amount">
           <th mat-header-cell *matHeaderCellDef>Amount</th>
@@ -80,7 +87,7 @@
         </ng-container>
         <ng-container matColumnDef="quantity">
           <th mat-header-cell *matHeaderCellDef>Quantity</th>
-          <td mat-cell *matCellDef="let ingredient">{{ingredient.ingredientQuantity.name}}</td>
+          <td mat-cell *matCellDef="let ingredient">{{ingredient.ingredientQuantity?.name}}</td>
         </ng-container>
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef>Action</th>
