@@ -1,0 +1,35 @@
+<table class="example-full-width" cellspacing="0">
+  <tr>
+    <td>
+      <mat-form-field class="example-full-width">
+        <mat-label>Ingredient</mat-label>
+        <input matInput placeholder="Ingredient" formControlName="editName">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field class="example-full-width">
+        <mat-label>Amount</mat-label>
+        <input matInput formControlName="editAmount">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field class="example-full-width">
+        <mat-label>Quantity</mat-label>
+        <input matInput formControlName="editQuantity">
+      </mat-form-field>
+      <!--      <mat-form-field class="example-full-width">-->
+      <!--        <mat-label>Quantity</mat-label>-->
+      <!--        <mat-select formControlName="ingredientQuantity">-->
+      <!--          <mat-option *ngFor="let category of categoryResponse" [value]="category">-->
+      <!--            {{ category.name }}-->
+      <!--          </mat-option>-->
+      <!--        </mat-select>-->
+      <!--      </mat-form-field>-->
+
+    </td>
+  </tr>
+</table>
+<button type="button" class="btn btn-primary" (click)="save()">
+  Save
+</button>
+

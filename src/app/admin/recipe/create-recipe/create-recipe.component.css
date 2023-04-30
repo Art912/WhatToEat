@@ -25,6 +25,10 @@
   align-items: flex-start;
 }
 
+.input-group-and-button mat-form-field {
+  margin-right: 5px;
+}
+
 .input-group-and-button button {
   height: 56px;
   margin-left: 2px;
@@ -53,20 +57,54 @@ mat-form-field {
 }
 
 .recipe-image {
+  display: flex;
+  /*align-items: center;*/
+}
+
+.recipe-image div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*height: 100%;*/
+  /*margin-right: 10px;*/
   width: 130px;
   height: 130px;
-  background-color: rgba(219, 219, 219)
+  background-color: rgba(219, 219, 219, 1);
+  text-align: center;
+}
+
+.recipe-image span {
+  font-size: 26px;
 }
 
 .container-with-image {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 1px solid black;
+  align-items: stretch;
+  /*border: 1px solid black;*/
+}
+
+.container-with-image > div {
+  margin-right: 10px;
+}
+
+.container-with-image > div:nth-last-child(-n+1) {
+  margin: 0;
 }
 
 .left-container {
   border: 1px solid red;
+}
+
+.dish-recipe-lable {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.dish-category-input {
+  width: 55%;
 }
 
 

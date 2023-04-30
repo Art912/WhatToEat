@@ -25,6 +25,7 @@ import {CreateRecipeComponent} from './admin/recipe/create-recipe/create-recipe.
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {EditRecipeIngredientComponent} from './admin/recipe/create-recipe/edit-recipe-ingredient/edit-recipe-ingredient.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     DeleteCategoryComponent,
     EditCategoryComponent,
     DeleteRecipeComponent,
-    CreateRecipeComponent
+    CreateRecipeComponent,
+    EditRecipeIngredientComponent
   ],
   imports: [
     BrowserModule,
